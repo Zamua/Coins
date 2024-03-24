@@ -16,7 +16,7 @@ long countSetBits(unsigned long n) {
   return hammingWeights(n);
 }
 
-// Function to count occurrences of "HH" (00) and "HT" (01)
+// Function to count occurrences of "HH" (00) and "HT" (10)
 void countPoints(unsigned long long sequence, long *alicePoints, long *bobPoints) {
     unsigned long long aliceMask = sequence & (sequence >> 1);
     unsigned long long bobMask = ~sequence & (sequence >> 1);
