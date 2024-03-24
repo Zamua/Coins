@@ -6,7 +6,7 @@ buildc:
 
 # Define a clean rule
 clean:
-	rm -f $(TARGET)
+	rm -f coins
 
 .PHONY: clean
 

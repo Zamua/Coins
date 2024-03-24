@@ -2,8 +2,9 @@
 nerd sniping coins
 
 ## Getting Started
-### Building
+### Cleaning and Building
 ```
+make clean
 make buildc
 ```
 
@@ -11,3 +12,4 @@ make buildc
 ```
 ./coins
 ```
+
