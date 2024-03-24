@@ -17,9 +17,9 @@ long countSetBits(unsigned long n) {
 }
 
 // Function to count occurrences of "HH" (00) and "HT" (01)
-void countPoints(unsigned int sequence, long *alicePoints, long *bobPoints) {
-    unsigned int aliceMask = sequence & (sequence >> 1);
-    unsigned int bobMask = ~sequence & (sequence >> 1);
+void countPoints(unsigned long long sequence, long *alicePoints, long *bobPoints) {
+    unsigned long long aliceMask = sequence & (sequence >> 1);
+    unsigned long long bobMask = ~sequence & (sequence >> 1);
 
     *alicePoints = countSetBits(aliceMask);
     *bobPoints = countSetBits(bobMask);
@@ -29,7 +29,7 @@ int main() {
     for (int N = 2; ; N++) {
         clock_t start = clock();
         unsigned long long totalSequences = 1ULL << N;
-        int aliceWins = 0, bobWins = 0, draws = 0;
+        long aliceWins = 0, bobWins = 0, draws = 0;
 
         for (unsigned long long seq = 0; seq < totalSequences; seq++) {
             long alicePoints, bobPoints;
@@ -42,7 +42,7 @@ int main() {
 
         clock_t end = clock();
         double cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-        printf("n=%d, time=%f, alice wins=%d, bob wins=%d, draws=%d\n", N, cpu_time_used, aliceWins, bobWins, draws);
+        printf("n=%d, time=%f, alice wins=%lu, bob wins=%lu, draws=%lu\n", N, cpu_time_used, aliceWins, bobWins, draws);
     }
 
     return 0;
