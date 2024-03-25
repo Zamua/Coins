@@ -1,7 +1,7 @@
 CC=gcc-13
 
 buildc:
-	$(CC) -fopenmp c/coins.c -o coins
+	$(CC) -O3 -fopenmp c/coins.c -o coins
 
 clean:
 	rm -f coins

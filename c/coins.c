@@ -3,7 +3,7 @@
 #include <time.h>
 #include <omp.h>
 
-long hammingWeights(unsigned long n) {
+unsigned long hammingWeights(unsigned long n) {
     n -= (n >> 1) & 0x5555555555555555L;
     n = (n & 0x3333333333333333L) + ((n >> 2) & 0x3333333333333333L);
     n = (n + (n >> 4)) & 0x0f0f0f0f0f0f0f0fL;
@@ -13,7 +13,7 @@ long hammingWeights(unsigned long n) {
     return n & 0x7f;
 }
 
-long countSetBits(unsigned long n) {
+unsigned long countSetBits(unsigned long n) {
   return hammingWeights(n);
 }
 
@@ -33,7 +33,6 @@ int main() {
         long aliceWins = 0, bobWins = 0, draws = 0;
 
         #pragma omp parallel for reduction(+:aliceWins, bobWins, draws)
-
         for (unsigned long long seq = 0; seq < totalSequences; seq++) {
             long alicePoints, bobPoints;
             countPoints(seq, &alicePoints, &bobPoints);
