@@ -1,12 +1,9 @@
-CC=gcc
+CC=gcc-13
 
-# Define the build target
 buildc:
-	$(CC) c/coins.c -o coins
+	$(CC) -fopenmp c/coins.c -o coins
 
-# Define a clean rule
 clean:
 	rm -f coins
 
 .PHONY: clean
-

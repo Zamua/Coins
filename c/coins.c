@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <omp.h>
 
 long hammingWeights(unsigned long n) {
     n -= (n >> 1) & 0x5555555555555555L;
@@ -27,22 +28,31 @@ void countPoints(unsigned long long sequence, long *alicePoints, long *bobPoints
 
 int main() {
     for (int N = 2; ; N++) {
-        clock_t start = clock();
+        double start_time = omp_get_wtime();
         unsigned long long totalSequences = 1ULL << N;
         long aliceWins = 0, bobWins = 0, draws = 0;
 
+        #pragma omp parallel for
         for (unsigned long long seq = 0; seq < totalSequences; seq++) {
             long alicePoints, bobPoints;
             countPoints(seq, &alicePoints, &bobPoints);
 
-            if (alicePoints > bobPoints) aliceWins++;
-            else if (bobPoints > alicePoints) bobWins++;
-            else draws++;
+            if (alicePoints > bobPoints) {
+                #pragma omp atomic
+                aliceWins++;
+            } else if (bobPoints > alicePoints) {
+                #pragma omp atomic
+                bobWins++;
+            } else {
+                #pragma omp atomic
+                draws++;
+            }
         }
 
-        clock_t end = clock();
-        double cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-        printf("n=%d, time=%f, alice wins=%lu, bob wins=%lu, draws=%lu\n", N, cpu_time_used, aliceWins, bobWins, draws);
+        double end_time = omp_get_wtime();
+        double time_elapsed = end_time - start_time;
+
+        printf("n=%d, time=%f, alice wins=%lu, bob wins=%lu, draws=%lu\n", N, time_elapsed, aliceWins, bobWins, draws);
     }
 
     return 0;
