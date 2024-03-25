@@ -17,7 +17,7 @@ long countSetBits(unsigned long n) {
   return hammingWeights(n);
 }
 
-// Function to count occurrences of "HH" (11) and "HT" (10)
+// Function to count occurrences of "HH" (00) and "HT" (01)
 void countPoints(unsigned long long sequence, long *alicePoints, long *bobPoints) {
     unsigned long long aliceMask = sequence & (sequence >> 1);
     unsigned long long bobMask = ~sequence & (sequence >> 1);
@@ -32,19 +32,17 @@ int main() {
         unsigned long long totalSequences = 1ULL << N;
         long aliceWins = 0, bobWins = 0, draws = 0;
 
-        #pragma omp parallel for
+        #pragma omp parallel for reduction(+:aliceWins, bobWins, draws)
+
         for (unsigned long long seq = 0; seq < totalSequences; seq++) {
             long alicePoints, bobPoints;
             countPoints(seq, &alicePoints, &bobPoints);
 
             if (alicePoints > bobPoints) {
-                #pragma omp atomic
                 aliceWins++;
             } else if (bobPoints > alicePoints) {
-                #pragma omp atomic
                 bobWins++;
             } else {
-                #pragma omp atomic
                 draws++;
             }
         }
