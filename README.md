@@ -1,5 +1,5 @@
 # Coins
-nerd sniping coins
+inspired by [this tweet](https://x.com/littmath/status/1769044719034647001)
 
 ## Getting Started
 ### Cleaning and Building
