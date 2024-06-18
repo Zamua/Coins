@@ -25,8 +25,8 @@ kernel void countPointsKernel(
         ulong aliceMask = sequence & (sequence >> 1);
         ulong bobMask = ~sequence & (sequence >> 1);
 
-        long alicePoints = popcount(aliceMask);
-        long bobPoints = popcount(bobMask);
+        int alicePoints = popcount(aliceMask);
+        int bobPoints = popcount(bobMask);
 
         if (alicePoints > bobPoints) {
             localAliceWins++;
