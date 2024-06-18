@@ -3,18 +3,8 @@
 #include <time.h>
 #include <omp.h>
 
-unsigned long hammingWeights(unsigned long n) {
-    n -= (n >> 1) & 0x5555555555555555L;
-    n = (n & 0x3333333333333333L) + ((n >> 2) & 0x3333333333333333L);
-    n = (n + (n >> 4)) & 0x0f0f0f0f0f0f0f0fL;
-    n += n >> 8;
-    n += n >> 16;
-    n += n >> 32;
-    return n & 0x7f;
-}
-
 unsigned long countSetBits(unsigned long n) {
-  return hammingWeights(n);
+  return __builtin_popcount(n);
 }
 
 // Function to count occurrences of "HH" (00) and "HT" (01)
