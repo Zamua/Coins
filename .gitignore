@@ -1,1 +1,4 @@
-coins
+coin_kernel.air
+coin_kernel.metallib
+coins-cpu
+coins-metal
