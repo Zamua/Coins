@@ -4,7 +4,7 @@
 #include <omp.h>
 
 int countSetBits(unsigned long long n) {
-  return __builtin_popcount(n);
+  return __builtin_popcountll(n);
 }
 
 // Function to count occurrences of "HH" (00) and "HT" (01)
